@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temperature Converter</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg,#16a085,#2c3e50);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        color: white;
+    }
+
+    .container {
+        background: rgba(0,0,0,0.6);
+        padding: 30px;
+        border-radius: 12px;
+        text-align: center;
+        width: 320px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    }
+
+    h2 {
+        margin-bottom: 20px;
+    }
+
+    input, select, button {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 6px;
+        border: none;
+        font-size: 16px;
+    }
+
+    button {
+        background: #1abc9c;
+        color: white;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    button:hover {
+        background: #16a085;
+    }
+
+    #result {
+        margin-top: 15px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Temperature Converter</h2>
+
+    <!-- Input -->
+    <input type="number" id="tempInput" placeholder="Enter temperature">
+
+    <!-- Unit Selection -->
+    <select id="unit">
+        <option value="C">Celsius</option>
+        <option value="F">Fahrenheit</option>
+        <option value="K">Kelvin</option>
+    </select>
+
+    <!-- Convert Button -->
+    <button onclick="convertTemp()">Convert</button>
+
+    <!-- Result -->
+    <div id="result"></div>
+</div>
+
+<script>
+function convertTemp() {
+
+    let temp = document.getElementById("tempInput").value;
+    let unit = document.getElementById("unit").value;
+    let result = document.getElementById("result");
+
+    // Validation
+    if (temp === "") {
+        result.innerHTML = "⚠ Please enter a number!";
+        return;
+    }
+
+    temp = parseFloat(temp);
+
+    let output = "";
+
+    if (unit === "C") {
+        let f = (temp * 9/5) + 32;
+        let k = temp + 273.15;
+        output = `${temp} °C = ${f.toFixed(2)} °F | ${k.toFixed(2)} K`;
+    }
+
+    else if (unit === "F") {
+        let c = (temp - 32) * 5/9;
+        let k = c + 273.15;
+        output = `${temp} °F = ${c.toFixed(2)} °C | ${k.toFixed(2)} K`;
+    }
+
+    else if (unit === "K") {
+        let c = temp - 273.15;
+        let f = (c * 9/5) + 32;
+        output = `${temp} K = ${c.toFixed(2)} °C | ${f.toFixed(2)} °F`;
+    }
+
+    result.innerHTML = output;
+}
+</script>
+
+</body>
+</html>
